@@ -1,37 +1,37 @@
 # xiaomi_miio_waterpurifier_yunmi
 
-Home Assistant custom component for Xiaomi Water Purifier C1, based on `python-miio` package
+小米净水器C1的Home Assistant custom component（基于`python-miio`）
 
-[中文说明](README_zh.md)
+[English](README.md)
 
-## Currently supported model
+## 支持机型
 
-* [yunmi.waterpuri.lx9](https://home.miot-spec.com/spec/yunmi.waterpuri.lx9)
-* [yunmi.waterpuri.lx11](https://home.miot-spec.com/spec/yunmi.waterpuri.lx11)
+* [yunmi.waterpuri.lx9（扁豆）](https://home.miot-spec.com/spec/yunmi.waterpuri.lx9)
+* [yunmi.waterpuri.lx11（C1 三出水）](https://home.miot-spec.com/spec/yunmi.waterpuri.lx11)
 
-## Entities provided
+## 提供的实体
 
-* Error reason
-* Filter#1 (PPC) remaining time (h)
-* Filter#1 (PPC) used time (h)
-* Filter#1 (PPC) remaining flow (L)
-* Filter#1 (PPC) used flow (L)
-* Filter#2 (RO) remaining time (h)
-* Filter#2 (RO) used time (h)
-* Filter#2 (RO) remaining flow (L)
-* Filter#2 (RO) used flow (L)
-* Filter#3 (CB) remaining time (h)
-* Filter#3 (CB) used time (h)
-* Filter#3 (CB) remaining flow (L)
-* Filter#3 (CB) used flow (L)
-* In water TDS (ppm)
-* Out water TDS (ppm)
-* Rinsing
-* Water temperature (°C)
+* 错误原因：Error reason 
+* PPC滤芯剩余时间：Filter#1 (PPC) remaining time (h)
+* PPC滤芯已用时间：Filter#1 (PPC) used time (h)
+* PPC滤芯剩余流量Filter#1 (PPC) remaining flow (L)
+* PPC滤芯已用流量：Filter#1 (PPC) used flow (L)
+* RO滤芯剩余时间：Filter#2 (RO) remaining time (h)
+* RO滤芯已用时间：Filter#2 (RO) used time (h)
+* RO滤芯剩余流量：Filter#2 (RO) remaining flow (L)
+* RO滤芯已用流量：Filter#2 (RO) used flow (L)
+* CB滤芯剩余时间：Filter#3 (CB) remaining time (h)
+* CB滤芯已用时间：Filter#3 (CB) used time (h)
+* CB滤芯剩余流量：Filter#3 (CB) remaining flow (L)
+* CB滤芯已用流量：Filter#3 (CB) used flow (L)
+* 进水TDS：In water TDS (ppm)
+* 出水TDS：Out water TDS (ppm)
+* 清洗中：Rinsing
+* 水温：Water temperature (°C)
 
-Note: time and flow only updates when they reach 24h and 10L respectively.
+P.S. 时间以24h递增，流量以10L递增
 
-## Example Configuration
+## configuration.yaml配置示例
 
 ```yaml
 sensor:
@@ -41,15 +41,15 @@ sensor:
       token: <host_token>
 ```
 
-## Example Lovelace Configuration
+## Lovelace配置示例
 
-* Front-end modules used: `mini-graph-card`, `button-card`
+* 需独立安装的前端模块: `mini-graph-card`, `button-card`
 
-![Example](example.png)
+![Example](example_zh.png)
 
 ```yaml
 type: vertical-stack
-title: Xiaomi Water Purifier C1
+title: 小米净水器
 cards:
   - type: horizontal-stack
     cards:
@@ -57,13 +57,13 @@ cards:
         name: TDS
         entities:
           - entity: sensor.xiaomi_water_purifier_c1_out_water_tds
-            name: Out
+            name: 出水
           - entity: sensor.xiaomi_water_purifier_c1_in_water_tds
-            name: In
+            name: 进水
         hours_to_show: 3
         points_per_hour: 6
       - type: custom:mini-graph-card
-        name: Water Temperature
+        name: 水温
         entities:
           - entity: sensor.xiaomi_water_purifier_c1_water_temperature
             color: green
@@ -78,10 +78,10 @@ cards:
             state:
               - value: 0
                 color: gray
-                label: Clean
+                label: 无需冲洗
               - value: 1
                 color: orange
-                label: Rinsing
+                label: 冲洗中
           - type: custom:button-card
             entity: sensor.xiaomi_water_purifier_c1_error_reason
             show_label: true
@@ -90,7 +90,7 @@ cards:
               - value: None
                 operator: '=='
                 color: cyan
-                label: Running
+                label: 正常运行
                 icon: mdi:water-check-outline
               - value: None
                 operator: '!='
@@ -108,12 +108,12 @@ cards:
               green: 0
               yellow: 5600
               red: 7200
-            name: PPC flow
+            name: PPC滤芯流量
           - type: gauge
             min: 0
             max: 7200
             entity: sensor.xiaomi_water_purifier_c1_filter_2_ro_used_flow
-            name: RO flow
+            name: RO滤芯流量
             severity:
               green: 0
               yellow: 5600
@@ -122,7 +122,7 @@ cards:
             min: 0
             max: 7200
             entity: sensor.xiaomi_water_purifier_c1_filter_3_cb_used_flow
-            name: CB flow
+            name: CB滤芯流量
             severity:
               green: 0
               yellow: 5600
@@ -137,12 +137,12 @@ cards:
               green: 0
               yellow: 7000
               red: 8640
-            name: PPC time
+            name: PPC滤芯时间
           - type: gauge
             min: 0
             max: 17280
             entity: sensor.xiaomi_water_purifier_c1_filter_2_ro_used_time
-            name: RO time
+            name: RO滤芯时间
             severity:
               green: 0
               yellow: 14000
@@ -151,7 +151,7 @@ cards:
             min: 0
             max: 8640
             entity: sensor.xiaomi_water_purifier_c1_filter_3_cb_used_time
-            name: CB time
+            name: CB滤芯时间
             severity:
               green: 0
               yellow: 7000
