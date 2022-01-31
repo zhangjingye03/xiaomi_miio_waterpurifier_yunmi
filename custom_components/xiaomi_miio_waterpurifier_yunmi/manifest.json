@@ -1,0 +1,13 @@
+{
+  "domain": "xiaomi_miio_waterpurifier_yunmi",
+  "name": "Xiaomi MiIO Water Purifier Yunmi",
+  "documentation": "http://example.com",
+  "dependencies": [],
+  "codeowners": [
+      "@zhangjingye03"
+  ],
+  "requirements": [
+      "python-miio>=0.5.3"
+  ],
+  "version": "0.0.1"
+}
